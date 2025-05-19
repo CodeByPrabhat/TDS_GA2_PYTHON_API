@@ -1,0 +1,11 @@
+name: Echo Email Action
+
+on:
+  workflow_dispatch:  # Allows manual run from GitHub UI
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 24f1001008@ds.study.iitm.ac.in
+        run: echo "Hello, world!"
