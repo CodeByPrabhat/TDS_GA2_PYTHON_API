@@ -21,3 +21,6 @@ with open("marks.json") as f:
 def get_marks(name: list[str] = []):
     result = [marks_data.get(n, None) for n in name]
     return {"marks": result}
+@app.get("/")
+def root():
+    return {"message": "Use /api?name=NAME to get student marks."}
