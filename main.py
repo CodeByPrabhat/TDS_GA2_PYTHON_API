@@ -18,9 +18,16 @@ with open("marks.json") as f:
     marks_data = {entry["name"]: entry["marks"] for entry in raw_data}
 
 @app.get("/api")
-def get_marks(name: list[str] = []):
-    result = [marks_data.get(n, None) for n in name]
-    return {"marks": result}
+def get_marks(name: list[str] = Query([])):
+    with open("marks.json") as f:
+        data = json.load(f)
+
+    name_to_marks = {str(entry["name"]): entry["marks"] for entry in data}
+    marks = [name_to_marks.get(str(n), None) for n in name]
+    marks = [m for m in marks if m is not None]  # Filter out not found
+
+    return {"marks": marks}
+
 @app.get("/")
 def root():
     return {"message": "Use /api?name=NAME to get student marks."}
